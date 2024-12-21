@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block main %}
+<div class="row content">
+    <h2>{{ leg.title }}</h2>
+</div>
+<div class="row my-2">
+    <div class="col-12 col-md-6">
+        {% if leg.photo %}
+        <img src="{{ leg.photo.url }}" class="img-fluid">
+        {% endif %}
+    </div>
+    <div class="col-12 col-md-6">
+        {{ leg.description | safe }}
+        {% if leg.available == 1 %}
+        <p class="danger">Внимание! Прежде чем производить оплату, получите подтверждение у организаторов.</p>
+        <p>Взнос за участие: <b>{{leg.price}} ₽</b></p>
+        <form name="TinkoffPayForm" onsubmit="tinkoffPayFunction(this); return false;" id="payment_form">
+            <input class="tinkoffPayRow" type="hidden" name="terminalkey" value="1648799321999">
+            <input class="tinkoffPayRow" type="hidden" name="frame" value="true">
+            <input class="tinkoffPayRow" type="hidden" name="language" value="ru">
+            <input class="tinkoffPayRow" type="text" placeholder="Сумма пожертвования" name="amount"
+                value="{{leg.price}}" />
+            <!--<input class="tinkoffPayRow" type="text" placeholder="Номер заказа" name="order">-->
+            <input class="tinkoffPayRow" type="hidden" placeholder="Описание заказа" value="Пожертвование"
+                name="description">
+            <input class="tinkoffPayRow" type="text" placeholder="ФИО плательщика" id="name" name="name" value="">
+            <input class="tinkoffPayRow" type="text" placeholder="E-mail" id="email" name="email" value="">
+            <input class="tinkoffPayRow" type="text" placeholder="Контактный телефон" name="phone" value="">
+            <input class="tinkoffPayRow" type="hidden" id="receipt" name="receipt" value="">
+            <input class="tinkoffPayRow" type="submit" value="Оплатить">
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

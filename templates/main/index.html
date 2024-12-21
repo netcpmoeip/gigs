@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% block main %}
+<div class="row my-4">
+    <div class="col-12 col-lg-9 mx-auto">
+        {% if shipyard %}
+        <h2 id="shipyard">{{ shipyard.title }}</h2>
+        <p>{{ shipyard.content | safe }}</p>
+        {% endif %}
+    </div>
+    {% if news %}
+    <div class="col-12 col-lg-9 mx-auto">
+        <div class="row">
+            <h3>Новости верфи</h3>
+            {% for article in news %}
+            <div class="col-12 col-md-4">
+                <div class="background-news" style="background-image: url('{{ article.photo.url }}');">
+                    <h5 class="news-title">{{article.title}}</h5>
+                    <a href="/news/{{article.slug}}/" class="btn">Читать</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <div class="col-12 col-lg-9 mx-auto">
+        {% if gigs %}
+        <h2 id="gigs">{{ gigs.title }}</h2>
+        <p>{{ gigs.content | safe }}</p>
+        {% endif %}
+        {% if legs %}
+        <div class="table-responsive-md">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Этап</th>
+                        <th scope="col">Отправление</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for leg in legs %}
+                    <tr class="link" onclick="window.location='/legs/{{leg.id}}/';">
+                        <th scope="row">{{leg.title}}</th>
+                        <td>{{leg.departure}}</td>
+                        <td>{{leg.price}} ₽</td>
+                        <td>
+                            {% if leg.available == 0 %}
+                            Мест нет
+                            {% else %}
+                            Есть места
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

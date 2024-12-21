@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block main %}
+{% load thumbnail %}
+<div class="row">
+    <h2>Новости</h2>
+</div>
+<div class="row my-2">
+    {% for entry in news %}
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3 position-relative d-flex align-items-stretch mx-md-0 mx-auto">
+        <div class="col pb-3 item d-flex flex-column">
+            <a class="flex-column d-flex" href="/blog/{{entry.slug}}/">
+                <img class="w-100 mb-3" src="{% thumbnail entry.img 400x250 crop %}">
+                <p class="px-3">{{ entry.title }}</p>
+                <p class="text-muted fw-bolder px-3">{{entry.date}}</p>
+                <div class="divider"></div>
+                <p class="px-3">{{entry.excerpt}}</p>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
