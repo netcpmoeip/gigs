@@ -58,6 +58,7 @@ Thumbs.db
 /www/
 /boilerplate/
 /uploads/
+/media/
 *_local.*
 *.sqlite3
 *.pyc
